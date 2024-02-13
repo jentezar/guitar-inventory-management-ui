@@ -54,6 +54,7 @@
             padding: 10px 20px; /* Adjust padding as needed */
         }
         
+        
         /* Label and input styles */
         label {
             display: inline-block; /* Display labels as blocks */
@@ -75,6 +76,7 @@
         .input-container {
             display: flex;
             flex-direction: column;
+            margin-bottom: 200px;
         }
 
         .input-container div {
@@ -150,26 +152,9 @@
             <th>Top Wood</th>
         </tr>
         <!-- Placeholder rows for guitar data -->
-        <tr>
-            <td>12345</td>
-            <td>$1000</td>
-            <td>Fender</td>
-            <td>Stratocaster</td>
-            <td>Electric</td>
-            <td>Alder</td>
-            <td>Maple</td>
-        </tr>
-        <tr>
-            <td>67890</td>
-            <td>$1500</td>
-            <td>Gibson</td>
-            <td>Les Paul</td>
-            <td>Electric</td>
-            <td>Mahogany</td>
-            <td>Maple</td>
-        </tr>
         <!-- Add more rows as needed -->
     </table>
+    <!-- clear table button-->
 
     <!-- Button container moved outside of the flex container -->
     <div class="button-container">
@@ -179,23 +164,55 @@
     </div>
 
     <script>
-        function searchGuitar(){
-            let serialNumberNode = document.getElementById("serialNumber");
-            let serialNumber = serialNumberNode.value;
-            let priceNode = document.getElementById("price");
-            let price = priceNode.value;
-            let builderNode = document.getElementById("builder");
-            let builder = builderNode.value;
-            let modelNode = document.getElementById("model");
-            let model = modelNode.value;
-            let typeNode = document.getElementById("type");
-            let type = typeNode.value;
-            let backWoodNode = document.getElementById("backWood");
-            let backWood = backWoodNode.value;
-            let topWoodNode = document.getElementById("topWood");
-            let topWood = topWoodNode.value;
-            let guitar = {serialNumber: serialNumber, price: price, builder: builder, model: model, type: type, backWood: backWood, topWood: topWood}
-            alert("You have entered: " + JSON.stringify(guitar));
+        function searchGuitar() {
+            // Retrieve guitars from local storage
+            let guitars = JSON.parse(localStorage.getItem('guitars')) || [];
+    
+            // Retrieve values from input fields
+            let builder = document.getElementById("builder").value.trim().toLowerCase();
+            let model = document.getElementById("model").value.trim().toLowerCase();
+            let type = document.getElementById("type").value.trim().toLowerCase();
+            let backWood = document.getElementById("backWood").value.trim().toLowerCase();
+            let topWood = document.getElementById("topWood").value.trim().toLowerCase();
+            
+            let table = document.getElementById("guitarTable");
+            let tableBody = table.getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = "";
+            
+            for (let guitar of guitars) {
+                // Check if the guitar matches the search criteria
+                let matchesSearchCriteria = true;
+                if (builder && guitar.builder.toLowerCase().indexOf(builder) === -1) {
+                    matchesSearchCriteria = false;
+                }
+                if (model && guitar.model.toLowerCase().indexOf(model) === -1) {
+                    matchesSearchCriteria = false;
+                }
+                if (type && guitar.type.toLowerCase().indexOf(type) === -1) {
+                    matchesSearchCriteria = false;
+                }
+                if (backWood && guitar.backWood.toLowerCase().indexOf(backWood) === -1) {
+                    matchesSearchCriteria = false;
+                }
+                if (topWood && guitar.topWood.toLowerCase().indexOf(topWood) === -1) {
+                    matchesSearchCriteria = false;
+                }
+                
+                // If the guitar matches the search criteria, add it to the table
+                if (matchesSearchCriteria) {
+                    let row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${guitar.serialNumber}</td>
+                        <td>${guitar.price}</td>
+                        <td>${guitar.builder}</td>
+                        <td>${guitar.model}</td>
+                        <td>${guitar.type}</td>
+                        <td>${guitar.backWood}</td>
+                        <td>${guitar.topWood}</td>
+                    `;
+                    tableBody.appendChild(row);
+                }
+            }
         }
     </script>
 </body>
