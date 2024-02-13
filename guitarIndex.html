@@ -6,19 +6,22 @@
     <title>Guitar Inventory Management</title>
     <style>
         /* both h1 and h2 style values */
-        h1, h2 {
+        .header {
             color: #D2691E;
-            margin: 0; /* Adjust top and bottom margins */
-            font-size: 1.5em;
+            position: absolute;
+            top: 10px;
+            left: 10px;
         }
         /*button styles */
         .button-styler {
-            text-align: right;
-            margin-top: .01em;
+            position: absolute;
+            top: 10px;
+            right: 10px;
         }
         
         .button-styler button{
-            margin-left: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
             background-color: #D2B48C;
             color: black;
             font-size: 2em;
@@ -36,8 +39,11 @@
     </style>
 </head>
 <body style="background-color: #D2B48C;">
-    <h1 style="margin-top: 20px;">Guitar Inventory</h1> <!-- Adjusted margin-top -->
-    <h2>Management</h2>
+    <!-- Header -->
+    <div class="header">
+        <h1 style="margin-top: 20px;">Guitar Inventory</h1> 
+        <h2 style="margin-top: -20px;">Management</h2>
+    </div>
     
     <!-- about search and add button implementation-->
     <div class="button-styler">
