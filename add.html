@@ -138,13 +138,14 @@
     </div>
 
     <script>
+        let host = "http://localhost:8080";
         let guitars = [
             { serialNumber: 1, price: "$1000", builder: "Fender", model: "Stratocaster", type: "Electric", backWood: "Alder", topWood: "Maple" },
             { serialNumber: 2, price: "$1200", builder: "Gibson", model: "Les Paul", type: "Electric", backWood: "Mahogany", topWood: "Maple" },
             { serialNumber: 3, price: "$800", builder: "Martin", model: "D-28", type: "Acoustic", backWood: "Rosewood", topWood: "Spruce" }
         ];
     
-        function addTheGuitar() {
+       async function addTheGuitar() {
             let serialNumberNode = document.getElementById("serialNumber");
             let serialNumber = serialNumberNode.value;
             let priceNode = document.getElementById("price");
@@ -159,9 +160,10 @@
             let backWood = backWoodNode.value;
             let topWoodNode = document.getElementById("topWood");
             let topWood = topWoodNode.value;
+            //old print guitar if new one doesnt work
             let guitar = { serialNumber: serialNumber, price: price, builder: builder, model: model, type: type, backWood: backWood, topWood: topWood };
     
-            // Store the guitar data in Local Storage 
+            // Store the guitar data in Local Storage (Optional if you're not using local storage)
             let guitarsInStorage = JSON.parse(localStorage.getItem('guitars')) || [];
             guitarsInStorage.push(guitar);
             localStorage.setItem('guitars', JSON.stringify(guitarsInStorage));
