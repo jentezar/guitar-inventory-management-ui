@@ -161,7 +161,7 @@
             let topWood = topWoodNode.value;
             let guitar = { serialNumber: serialNumber, price: price, builder: builder, model: model, type: type, backWood: backWood, topWood: topWood };
     
-            // Store the guitar data in Local Storage (Optional if you're not using local storage)
+            // Store the guitar data in Local Storage 
             let guitarsInStorage = JSON.parse(localStorage.getItem('guitars')) || [];
             guitarsInStorage.push(guitar);
             localStorage.setItem('guitars', JSON.stringify(guitarsInStorage));
