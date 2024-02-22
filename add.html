@@ -179,22 +179,21 @@
             let request = {
                 method: "POST",
                 headers: {
-                    "Content=Type": "application/json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(guitar)
             };
+            //*****
             let response = await fetch(host + "/add", request);
+            let message;
             if(response.status == 200){
-                if(result){
-                    "The guitar was added to the system"
-                }
+                message = "The guitar was added to the system";
             }else {
                 console.log(response);
                 message = "Something went wrong. Please try again or contact the customer support team.";
             }
             alert(message);
             
-
            // alert("You have entered: " + JSON.stringify(guitar));
         }
     </script>
