@@ -139,11 +139,7 @@
 
     <script>
         let host = "http://localhost:8080";
-        let guitars = [
-            { serialNumber: 1, price: "$1000", builder: "Fender", model: "Stratocaster", type: "Electric", backWood: "Alder", topWood: "Maple" },
-            { serialNumber: 2, price: "$1200", builder: "Gibson", model: "Les Paul", type: "Electric", backWood: "Mahogany", topWood: "Maple" },
-            { serialNumber: 3, price: "$800", builder: "Martin", model: "D-28", type: "Acoustic", backWood: "Rosewood", topWood: "Spruce" }
-        ];
+        let guitars = [];
     
        async function addTheGuitar() {
             let serialNumberNode = document.getElementById("serialNumber");
