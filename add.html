@@ -143,19 +143,19 @@
     
        async function addTheGuitar() {
             let serialNumberNode = document.getElementById("serialNumber");
-            let serialNumber = serialNumberNode.value;
+            let serialNumber = serialNumberNode.value.toUpperCase().replace(/\s/g, '_');
             let priceNode = document.getElementById("price");
             let price = priceNode.value;
             let builderNode = document.getElementById("builder");
-            let builder = builderNode.value;
+            let builder = builderNode.value.toUpperCase().replace(/\s/g, '_');
             let modelNode = document.getElementById("model");
-            let model = modelNode.value;
+            let model = modelNode.value.toUpperCase().replace(/\s/g, '_');
             let typeNode = document.getElementById("type");
-            let type = typeNode.value;
+            let type = typeNode.value.toUpperCase().replace(/\s/g, '_');
             let backWoodNode = document.getElementById("backWood");
-            let backWood = backWoodNode.value;
+            let backWood = backWoodNode.value.toUpperCase().replace(/\s/g, '_');
             let topWoodNode = document.getElementById("topWood");
-            let topWood = topWoodNode.value;
+            let topWood = topWoodNode.value.toUpperCase().replace(/\s/g, '_');
             //old print guitar if new one doesnt work
             let guitar = { serialNumber: serialNumber, price: price, builder: builder, model: model, type: type, backWood: backWood, topWood: topWood };
 
