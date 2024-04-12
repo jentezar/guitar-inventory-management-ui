@@ -141,20 +141,7 @@
         <button class="search-guitar-button" onclick="searchGuitar()">Search</button>
     </div>
 
-    <table id="guitarTable">
-        <tr>
-            <th>Serial Number</th>
-            <th>Price</th>
-            <th>Builder</th>
-            <th>Model</th>
-            <th>Type</th>
-            <th>Back Wood</th>
-            <th>Top Wood</th>
-        </tr>
-        
-        <!-- Placeholder rows for guitar data -->
-        <!-- Add more rows as needed -->
-    </table>
+    <table id="guitarTable"></table>
     <!-- clear table button-->
 
     <!-- Button container moved outside of the flex container -->
@@ -166,42 +153,92 @@
     </div>
 
     <script>
-        function searchGuitar() {
+        let guitars = [];
+        async function getAllGuitars(){
+            let builder = document.getElementById("builder").value.toUpperCase()
+            let model = document.getElementById("model").value.toUpperCase()
+            let type = document.getElementById("type").value.toUpperCase()
+            let backWood = document.getElementById("backWood").value.toUpperCase()
+            let topWood = document.getElementById("topWood").value.toUpperCase()
+            if(builder == ""){
+                builder = null;
+            }
+            if(type == ""){
+                type = null;
+            }
+            if(backWood == ""){
+                backWood = null;
+            }
+            if(topWood == ""){
+                topWood = null;
+            }
+            let guitar = { builder: builder, model: model, type: type, backWood: backWood, topWood: topWood };
+
+            let host = "https://guitar-inventory-management-latest.onrender.com";
+            let request = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(guitar)
+            };
+            try{
+                let response = await fetch(host + "/search", request);
+                if(response.ok){
+                    let guitars = await response.json();
+                    return guitars;
+                }else{
+                    console.error('Http Error: '+ response.status);
+                    return [];
+                }
+            } catch(error){
+                console.error('fetch error: ', error);
+                return [];
+            }
+        }
+
+        async function searchGuitar() {
             // Retrieve guitars from local storage
-            let guitars = JSON.parse(localStorage.getItem('guitars')) || [];
-    
+            //let guitars = JSON.parse(localStorage.getItem('guitars')) || [];
+            //if (guitars.length == 0) {
+              //  guitars = await getAllGuitars();
+            //}
+            guitars = await getAllGuitars();
+
             // Retrieve values from input fields
-            let builder = document.getElementById("builder").value.trim().toLowerCase();
-            let model = document.getElementById("model").value.trim().toLowerCase();
-            let type = document.getElementById("type").value.trim().toLowerCase();
-            let backWood = document.getElementById("backWood").value.trim().toLowerCase();
-            let topWood = document.getElementById("topWood").value.trim().toLowerCase();
+            let builder = document.getElementById("builder").value.toUpperCase();
+            let model = document.getElementById("model").value.toUpperCase();
+            let type = document.getElementById("type").value.toUpperCase();
+            let backWood = document.getElementById("backWood").value.toUpperCase();
+            let topWood = document.getElementById("topWood").value.toUpperCase();
+
             
             let table = document.getElementById("guitarTable");
-            let tableBody = table.getElementsByTagName('tbody')[0];
-            tableBody.innerHTML = "";
+            let tableHTML = `        
+            <tbody>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Price</th>
+                    <th>Builder</th>
+                    <th>Model</th>
+                    <th>Type</th>
+                    <th>Back Wood</th>
+                    <th>Top Wood</th>
+                </tr>
+                </tbody>
+                `;
+                table.innerHTML = tableHTML;
             
+
+            // let tableBody = table.getElementsByTagName('tbody')[0];
+            // tableBody.innerHTML = "";
+
             for (let guitar of guitars) {
-                // Check if the guitar matches the search criteria
-                let matchesSearchCriteria = true;
-                if (builder && guitar.builder.toLowerCase().indexOf(builder) === -1) {
-                    matchesSearchCriteria = false;
-                }
-                if (model && guitar.model.toLowerCase().indexOf(model) === -1) {
-                    matchesSearchCriteria = false;
-                }
-                if (type && guitar.type.toLowerCase().indexOf(type) === -1) {
-                    matchesSearchCriteria = false;
-                }
-                if (backWood && guitar.backWood.toLowerCase().indexOf(backWood) === -1) {
-                    matchesSearchCriteria = false;
-                }
-                if (topWood && guitar.topWood.toLowerCase().indexOf(topWood) === -1) {
-                    matchesSearchCriteria = false;
-                }
-                
-                // If the guitar matches the search criteria, add it to the table
-                if (matchesSearchCriteria) {
+                if ((!builder || guitar.builder.toUpperCase() == builder || builder == "") &&
+                    (!model || guitar.model.toUpperCase() == model || model == "") &&
+                    (!type || guitar.type.toUpperCase() == type || type == "") &&
+                    (!backWood || guitar.backWood.toUpperCase() == backWood || backWood == "") &&
+                    (!topWood || guitar.topWood.toUpperCase() == topWood || topWood == "")) {
                     let row = document.createElement("tr");
                     row.innerHTML = `
                         <td>${guitar.serialNumber}</td>
@@ -212,7 +249,8 @@
                         <td>${guitar.backWood}</td>
                         <td>${guitar.topWood}</td>
                     `;
-                    tableBody.appendChild(row);
+                    // tableBody.appendChild(row);
+                    table.appendChild(row);
                 }
             }
         }
