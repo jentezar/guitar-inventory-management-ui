@@ -1,4 +1,4 @@
-
+let host = "http://localhost:8080"
 async function signup() {
     let email = document.getElementById("email").value;
     let username = document.getElementById("username").value;
@@ -12,7 +12,7 @@ async function signup() {
         body: JSON.stringify(customer)
       };
       try {
-        let response = await fetch(getHost() + "/signup", request);
+        let response = await fetch(host + "/signup", request);
         if(response.status == 200) {  
             alert("The registration was successful!")
             location.href = "login.html";
