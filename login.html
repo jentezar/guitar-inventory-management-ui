@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Inventory Management</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="navbar.css">
+    <style>
+        /* both h1 and h2 style values */
+        .header {
+            color: #D2691E;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        /*button styles */
+        .button-styler {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        
+        .button-styler button{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: #D2B48C;
+            color: black;
+            font-size: 2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .centered-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body style="background-color: #D2B48C;">
+    
+    <!-- about search and add button implementation-->
+    <ul class="topnav">
+        <li><a  href="index.html">About</a></li>
+        <li><a href="add.html">Add</a></li>        
+        <li><a href="search.html">Search</a></li>
+        <li class="right"><a  class="active" href="login.html">Login</a></li>
+    </ul>
+    <div class="container">
+        <form>
+          <div class="row">
+            <h2 style="text-align:center">Login with Social Media or Manually</h2>
+            <div class="vl">
+              <span class="vl-innertext">or</span>
+            </div>
+      
+            <div class="col">
+              <a href="#" class="fb btn">
+                <i class="fa fa-facebook fa-fw"></i> Login with Github
+              </a>           
+              <a href="#" class="google btn">
+                <i class="fa fa-google fa-fw"></i> Login with Google
+              </a>
+            </div>
+      
+            <div class="col">
+              <div class="hide-md-lg">
+                <p>Or sign in manually:</p>
+              </div>
+      
+              <input type="text" id="username" placeholder="Username" required>
+              <input type="password" id="password" placeholder="Password" required>
+              <input type="button" onclick="login()" value="Login">
+            </div>
+      
+          </div>
+        </form>
+      </div>
+      
+      <div class="bottom-container">
+        <div class="row">
+          <div class="col">
+            <a href="register.html" style="color:white" class="btn">Sign up</a>
+          </div>
+          <div class="col">
+            <a href="#" style="color:white" class="btn">Forgot password?</a>
+          </div>
+        </div>
+      </div>
+
+ 
+    
+</body>
+</html>
